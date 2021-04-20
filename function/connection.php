@@ -1,16 +1,33 @@
 <?php 
-
 class connection 
 {
     public static $conn = null;
-    public function __construct() 
+    // public function __construct() 
+    // {
+    //     self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir'); 
+    // }
+
+    public static function getConnection()
     {
         if (self::$conn == null) {
-            self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir');
-        }   
+            $mysqli = new mysqli('localhost', 'root', '', 'usk_kasir');	
+
+            if ($mysqli->connect_error){
+                echo "Gagal terkoneksi ke database : (".$mysqli->connect_error.")";die();
+            }  
+            return $mysqli;
+        }
+		return self::$conn;
+    }
+
+    public static function getQuery($query)
+    {
+        $data = [];
+        $query = self::getConnection()->query($query);
+        while ($row = $query->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        return $data;
     }
 }
-
-// $p = new connection();
-// // var_dump(connection::$conn);
-// var_dump($p::$conn);

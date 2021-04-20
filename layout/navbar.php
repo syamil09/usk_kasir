@@ -9,13 +9,16 @@
                     class="nav-link text-white <?= $menu == 'pelanggan' ? 'bg-success rounded' : ''; ?>">Pelanggan</a>
             </li>
             <li class="navbar-item dropdown">
-                <a href="" class="nav-link text-white">Menu</a>
+                <a href="<?= BASE_URL.'view/home.php?menu=menu&page=view'; ?>" 
+                    class="nav-link text-white <?= $menu == 'menu' ? 'bg-success rounded' : ''; ?>">Menu</a>
             </li>
             <li class="nav-item">
-                <a href=""  class="nav-link text-white">Transaksi</a>
+                <a href="<?= BASE_URL.'view/home.php?menu=transaksi&page=view'; ?>"  
+                    class="nav-link text-white <?= $menu == 'transaksi' ? 'bg-success rounded' : ''; ?>">Transaksi</a>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link text-white">Pesanan</a>
+                <a href="<?= BASE_URL.'view/home.php?menu=pesanan&page=view'; ?>" 
+                    class="nav-link text-white <?= $menu == 'pesanan' ? 'bg-success rounded' : ''; ?>">Pesanan</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#"  class="nav-link text-white">Laporan</a>

@@ -6,16 +6,19 @@
         if ($pel->update($_POST, $id)) {
             echo "<script>
                 alert('Data pelanggan berhasil diubah');
+                document.location.href='".BASE_URL."view/home.php?menu=pelanggan&page=view';
                 </script>";
         } else {
             echo "<script>
-                alert('Data pelanggan gagal diubah :(');
+                alert('Data pelanggan gagal diubah');
+                document.location.href='".BASE_URL."view/home.php?menu=pelanggan&page=view';
                 </script>";
         }
-        header('location:'.BASE_URL.'view/home.php?menu=pelanggan&page=edit&id='.$id);
+        // header('location:'.BASE_URL.'view/home.php?menu=pelanggan&page=edit&id='.$id);
     }
     
     $dataPel = $pel->edit($id);
+    // var_dump($dataPel);
 ?>
 
 <div class="row">

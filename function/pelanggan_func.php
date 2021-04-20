@@ -1,21 +1,22 @@
 <?php 
-include 'connection.php';
 
-class pelanggan_func extends connection
+class pelanggan_func
 {
+    private static $conn = null; 
+    public function __construct()
+	{
+		// self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir');	
+		self::$conn = connection::getConnection();	
+	}
+
     public function get()
     {
-        $data  = [];
-        $query = self::$conn->query("CALL GET_PELANGGAN()");
-        while ($row = $query->fetch_assoc()) {
-            $data[] = $row;
-        }
-        return $data;
+        return connection::getQuery("CALL GET_PELANGGAN()");  
     }
 
     public function add($data = [])
     {
-        $query = self::$conn->prepare("CALL ADD_PELANGGAN(?,?,?,?)");
+        $query =  self::$conn->prepare("CALL ADD_PELANGGAN(?,?,?,?)");
         $query->bind_param('ssss',
             $data['nama'],
             $data['jenkel'],
@@ -31,8 +32,10 @@ class pelanggan_func extends connection
 
     public function edit($id) 
     {
+        $db = new connection();
         if ($query = self::$conn->prepare("CALL SHOW_PELANGGAN(?)")) {
             $query->bind_param('i', $id);
+            // var_dump($query->execute());die();
             if ($query->execute()) {
                 $res = $query->get_result();
                 return $res->fetch_assoc();
@@ -44,6 +47,7 @@ class pelanggan_func extends connection
 
     public function update($data, $id)
     {
+        $db = new connection();
         if ($query = self::$conn->prepare("CALL UPDATE_PELANGGAN(?,?,?,?,?)")) {
             $query->bind_param('ssssi', 
                 $data['nama'],
@@ -52,23 +56,27 @@ class pelanggan_func extends connection
                 $data['alamat'],
                 $id
             );
-
             if ($query->execute()) {
-                return $query->affected_rows;
+                return true;
             }
         }
         return false;
     }
 
     public function delete($id)
-    {        
+    {   
+        $db = new connection();
+        
         if ($query = self::$conn->prepare("CALL DELETE_PELANGGAN(?)")) {
             $query->bind_param('i', $id);
-
-            if ($query->execute()) {
+            if ($query->execute()) 
                 return $query->affected_rows;
-            }
+            
+            // var_dump(self::$conn->errno);die();
+            if (self::$conn->errno === 1451) 
+                $_SESSION['error_message'] = "Data pelanggan tidak bisa dihapus. Karena memiliki data pesanan";
         }
+        
         return false;
     }
 }

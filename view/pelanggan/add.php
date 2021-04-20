@@ -5,11 +5,11 @@
         if ($pel->add($_POST)) {
             echo "<script>
                 alert('Data pelanggan berhasil ditambah');
+                document.location.href='".BASE_URL."view/home.php?menu=pelanggan&page=view';
                 </script>";
-        }
-        header('location:'.BASE_URL.'view/home.php?menu=pelanggan&page=view');
+        } 
+        // header('location:'.BASE_URL.'view/home.php?menu=pelanggan&page=view');
     }
-// echo "add pel";
 ?>
 
 <div class="row">

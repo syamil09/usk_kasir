@@ -1,18 +1,19 @@
 <?php 
     $pel = new pelanggan_func();
-    
+    $msg = $_SESSION['error_message'];
 
     if (isset($_POST['delete'])) {
-        if ($pel->delete($_POST['id'])) {
+        if ($pel->delete($_POST['id']) > 0) {
             echo "<script>
                 alert('Data pelanggan berhasil dihapus');
+                document.location.href='".BASE_URL."view/home.php?menu=pelanggan&page=view';
                 </script>";
         } else {
             echo "<script>
-                alert('Data pelanggan gagal dihapus!');
+                alert('Data pelanggan gagal dihapus!.".$msg."');
+                document.location.href='".BASE_URL."view/home.php?menu=pelanggan&page=view';
                 </script>";
         }
-        header('location:'.BASE_URL.'view/home.php?menu=pelanggan&page=view');
     }
     // get data must be under delete function to prevent pass by reference
     $dataPel = $pel->get();
