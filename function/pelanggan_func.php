@@ -4,10 +4,10 @@ class pelanggan_func
 {
     private static $conn = null; 
     public function __construct()
-	{
-		// self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir');	
-		self::$conn = connection::getConnection();	
-	}
+    {
+	// self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir');	
+	self::$conn = connection::getConnection();	
+    }
 
     public function get()
     {
@@ -32,7 +32,6 @@ class pelanggan_func
 
     public function edit($id) 
     {
-        $db = new connection();
         if ($query = self::$conn->prepare("CALL SHOW_PELANGGAN(?)")) {
             $query->bind_param('i', $id);
             // var_dump($query->execute());die();
