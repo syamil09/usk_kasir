@@ -21,7 +21,8 @@
                     class="nav-link text-white <?= $menu == 'pesanan' ? 'bg-success rounded' : ''; ?>">Pesanan</a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#"  class="nav-link text-white">Laporan</a>
+                <a href="<?= BASE_URL.'view/home.php?menu=laporan&page=view'; ?>"  
+                    class="nav-link text-white <?= $menu == 'laporan' ? 'bg-success rounded' : ''; ?>">Laporan</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#"  class="nav-link text-white">Logout</a>

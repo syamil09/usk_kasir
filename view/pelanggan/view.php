@@ -1,6 +1,6 @@
 <?php 
     $pel = new pelanggan_func();
-    $msg = $_SESSION['error_message'];
+    $msg = isset($_SESSION['error_message']) ?? '';
 
     if (isset($_POST['delete'])) {
         if ($pel->delete($_POST['id']) > 0) {

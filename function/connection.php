@@ -2,16 +2,11 @@
 class connection 
 {
     public static $conn = null;
-    // public function __construct() 
-    // {
-    //     self::$conn = new mysqli('localhost', 'root', '', 'usk_kasir'); 
-    // }
 
     public static function getConnection()
     {
         if (self::$conn == null) {
             $mysqli = new mysqli('localhost', 'root', '', 'usk_kasir');	
-
             if ($mysqli->connect_error){
                 echo "Gagal terkoneksi ke database : (".$mysqli->connect_error.")";die();
             }  

@@ -16,17 +16,18 @@
         }
     }
     // get data must be under delete function to prevent pass by reference
-    $dataPes = $transaksi->getPesanan('Belum Dibayar');
+    $dataPes = $transaksi->getPesanan('Sudah Dibayar');
 
     function formatRupiah($number) 
     {
         return 'Rp. '.number_format($number, 0, '', '.'); 
     }
+    
 ?>
 
 <div class="row">
     <div class="col-md-12 py-4">
-        <h2 class="text-center mb-4">Data Transaksi</h2> 
+        <h2 class="text-center mb-4">Laporan Transaksi</h2> 
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -37,7 +38,7 @@
                     <th>Jumlah</th>
                     <th>Pelanggan</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th>Total</th>
                 </tr>            
             </thead>
             <tbody>
@@ -50,15 +51,14 @@
                     <td><?= $row['jumlah']; ?></td>
                     <td><?= $row['nama_pelanggan']; ?></td>
                     <td><?= $row['status_pembayaran']; ?></td>
-                    <td>
-                        <form action="" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?= $row['id_pesanan']; ?>">
-                            <button type="submit" name="bayar" class="btn btn-info btn-sm" onclick="return confirm('Yakin membayar pesanan ini?');">Bayar</button>
-                        </form>
-                        
-                    </td>
+                    <td><?= formatRupiah($row['jumlah'] * $row['harga']);  ?></td>
                 </tr>
                 <?php endforeach; ?>
+                <tr class="bg-light">
+                    <td colspan="6"></td>
+                    <td>Total</td>
+                    <td ><?= formatRupiah($transaksi->getTotalTransaksi()); ?></td>
+                </tr>
             </tbody>
         </table>
     </div>

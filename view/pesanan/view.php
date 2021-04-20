@@ -6,12 +6,12 @@
         if ($pel->delete($_POST['id']) > 0) {
             echo "<script>
                 alert('Data pelanggan berhasil dihapus');
-                document.location.href='".BASE_URL."view/home.php?menu=pesanan&page=view'
+                document.location.href='".BASE_URL."view/home.php?menu=pesanan&page=view';
                 </script>";
         } else {
             echo "<script>
                 alert('Data pelanggan gagal dihapus!');
-                document.location.href='".BASE_URL."view/home.php?menu=pesanan&page=view'
+                document.location.href='".BASE_URL."view/home.php?menu=pesanan&page=view';
                 </script>";
         }
     }
@@ -50,12 +50,14 @@
                     <td><?= formatRupiah($row['harga']); ?></td>
                     <td><?= $row['jumlah']; ?></td>
                     <td><?= $row['nama_pelanggan']; ?></td>
-                    <td><?= $row['status_pembayaran']; ?></td>
                     <td>
-                        <a href="<?= BASE_URL.'view/home.php?menu=pesanan&page=edit&id='.$row['id_pesanan']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                        <span class="badge badge-<?= $row['status_pembayaran'] == 'Sudah Dibayar' ? 'success' : 'danger'; ?>"><?= $row['status_pembayaran']; ?></span>
+                    </td>
+                    <td>
+                        <a href="<?= BASE_URL.'view/home.php?menu=pesanan&page=edit&id='.$row['id_pesanan']; ?>" class="btn btn-outline-warning btn-sm">Edit</a>
                         <form action="" method="POST" class="d-inline">
                             <input type="hidden" name="id" value="<?= $row['id_pesanan']; ?>">
-                            <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data ini?');"> Delete</button>
+                            <button type="submit" name="delete" class="btn btn-outline-danger btn-sm" onclick="return confirm('Yakin menghapus data ini?');"> Delete</button>
                         </form>
                         
                     </td>
